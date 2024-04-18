@@ -3,20 +3,21 @@ import cv2
 import os
 from utils_col import Pixel, Divide,calcualte_height,plot_height_map
 import pandas as pd
-# print(os.getcwd())
-# source = 'data/RGB.xlsx'
+
+xlsx_source = '../data/RGB.xlsx'
+xlsx = pd.read_excel(xlsx_source)
 path = "../data/image.tif"
 image = None
 if os.path.exists(path):
     image = cv2.imread(path)
-# df = pd.read_excel(source)
 m, n, _ = image.shape
 height_map = [[Pixel() for i in range(m)] for j in range(n)]
-num = int(input("Number of Colors: "))
+num = xlsx['晶面'].isnull().idxmax()
 divide_list = []
 for i in range(num):
-    R, G, B = map(int, input("R,G,B:").split())
-    x, y, z = map(float, input("n: ").split())
+    R, G, B = xlsx['R'][i], xlsx['G'][i], xlsx['B'][i]
+    xyz = xlsx['晶面'][0][1:-1].split(' ')
+    x, y, z = [int(x) for x in xyz]
     divide_list.append(Divide([R, G, B], [x, y, z]))
 for i in range(m):
     for j in range(n):
