@@ -3,13 +3,13 @@ import cv2
 import os
 from utils_col import Pixel, Divide,calcualte_height,plot_height_map
 import pandas as pd
-sorce = 'data/RGB.xlsx'
-path = "data/image.tif"
+# print(os.getcwd())
+# source = 'data/RGB.xlsx'
+path = "../data/image.tif"
 image = None
 if os.path.exists(path):
     image = cv2.imread(path)
-df = pd.read_excel(sorce)
-
+# df = pd.read_excel(source)
 m, n, _ = image.shape
 height_map = [[Pixel() for i in range(m)] for j in range(n)]
 num = int(input("Number of Colors: "))

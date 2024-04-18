@@ -25,8 +25,8 @@ def calcualte_height(n0,n1):
 def plot_height_map(height_map):
     m,n = len(height_map), len(height_map[0])
     height_map = np.array([[height_map[i][j].height for j in range(n)] for i in range(m)])
-    x = np.range(m)
-    y = np.range(n)
+    x = np.arange(m)
+    y = np.arange(n)
     x,y = np.meshgrid(x,y)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
