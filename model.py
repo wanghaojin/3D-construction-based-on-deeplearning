@@ -58,9 +58,10 @@ class ShadowConstruction(nn.Module):
         self.mlp1 = Constructor(layers)
         self.mlp2 = Constructor(layers)
         self.mlp3 = Constructor(layers)
-
-    def forward(self, img1, img2, img3):
+        self.mlp4 = Constructor(layers)
+    def forward(self, img1, img2, img3,img4):
         height1 = self.mlp1(img1)
         height2 = self.mlp2(img2)
         height3 = self.mlp3(img3)
-        return height1, height2, height3
+        height4 = self.mlp4(img4)
+        return height1, height2, height3,height4    

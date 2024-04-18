@@ -2,7 +2,7 @@ import numpy as np
 import os
 
 
-def data_loader(path, num_images, num_ignore=None):
+def data_loader(path, num_images,size, num_ignore=None):
     shadow_list = []
     height_list = []
     for image in range(1, num_images + 1):
