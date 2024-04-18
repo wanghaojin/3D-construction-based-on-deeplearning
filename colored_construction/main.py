@@ -2,10 +2,14 @@ import numpy as np
 import cv2
 import os
 from utils_col import Pixel, Divide,calcualte_height,plot_height_map
-
-path = "data"
+import pandas as pd
+sorce = 'data/RGB.xlsx'
+path = "data/image.tif"
+image = None
 if os.path.exists(path):
     image = cv2.imread(path)
+df = pd.read_excel(sorce)
+
 m, n, _ = image.shape
 height_map = [[Pixel() for i in range(m)] for j in range(n)]
 num = int(input("Number of Colors: "))
@@ -13,7 +17,7 @@ divide_list = []
 for i in range(num):
     R, G, B = map(int, input("R,G,B:").split())
     x, y, z = map(float, input("n: ").split())
-    divide_list.append(Divide((R, G, B), (x, y, z)))
+    divide_list.append(Divide([R, G, B], [x, y, z]))
 for i in range(m):
     for j in range(n):
         R_img = image[i][j][2]
