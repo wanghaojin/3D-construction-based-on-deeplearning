@@ -26,7 +26,6 @@ def calcualte_height(n0,n1):
     if n0 != n1:
         delta_h = math.sqrt(1-((a0*a1 + b0*b1 + c0*c1) / (math.sqrt(a0**2 + b0**2 + c0**2) * math.sqrt(a1**2 + b1**2 + c1**2)))**2)
     if n0 == n1:
-        c0 = 0
         c1 = 0
         delta_h = (a0*a1 + b0*b1 + c0*c1) / (math.sqrt(a0**2 + b0**2 + c0**2) * math.sqrt(a1**2 + b1**2 + c1**2))
 
