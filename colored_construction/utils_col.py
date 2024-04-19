@@ -36,3 +36,23 @@ def sub_list(a,b):
 def add_list(a,b):
     return [a[i]+b[i] for i in range(len(a))]
     
+def plot_3D_height_map(height_map, sampling_factor=10):
+    """
+    Function to plot the 3D structure of the height map.
+    """
+    # Sampling the height map to make the plot less dense and easier to view
+    height_map_downsampled = height_map[::sampling_factor, ::sampling_factor]
+    x = np.arange(0, height_map.shape[0], sampling_factor)
+    y = np.arange(0, height_map.shape[1], sampling_factor)
+    x, y = np.meshgrid(x, y)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    # Plotting the surface
+    ax.plot_surface(x, y, height_map_downsampled, cmap='viridis')
+
+    ax.set_xlabel('X coordinate')
+    ax.set_ylabel('Y coordinate')
+    ax.set_zlabel('Height')
+    plt.title('3D Height Map Visualization')
+    plt.show()

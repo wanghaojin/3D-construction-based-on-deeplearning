@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import os
-from utils_col import Pixel, Plane, calcualte_height,sub_list,add_list
+from utils_col import Pixel, Plane, calcualte_height,sub_list,add_list,plot_3D_height_map
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
@@ -43,7 +43,13 @@ else:
                 if plane.RGB == RGB_img:
                     height_map[i][j].update(add_list(plane.n,n_tr))
                     break
+            if i == 0 and j == 0:
+                continue
             if j == 0:
+                if height_map[i][j].n == None or height_map[i-1][j].n == None:
+                    height_map[i][j].update_height(height_map[i-1][j].height)
+                    continue
+                height_map[i][j].update_height(height_map[i-1][j].height+calcualte_height(height_map[i-1][j].n, height_map[i][j].n))
                 continue
             if height_map[i][j].n == None or height_map[i][j-1].n == None: 
                 height_map[i][j].update_height(height_map[i][j-1].height)
@@ -63,19 +69,4 @@ x_downsampled = np.arange(0, height_map.shape[0], sampling_factor)
 y_downsampled = np.arange(0, height_map.shape[1], sampling_factor)
 x_downsampled, y_downsampled = np.meshgrid(x_downsampled, y_downsampled)
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-surface = ax.plot_surface(x_downsampled, y_downsampled, height_map_downsampled, rstride=1, cstride=1, cmap='viridis')
-fig.colorbar(surface)
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Height')
-ax.set_title('3D Construction (Downsampled)')
-plt.show()
-
-
-
-# for i in range(m):
-#     for j in range(n):
-#         if(height_map[i][j].n != [1,0,1] and height_map[i][j].n!= None):
-#             print(height_map[i][j].n)
+plot_3D_height_map(height_map_downsampled, sampling_factor=5)
