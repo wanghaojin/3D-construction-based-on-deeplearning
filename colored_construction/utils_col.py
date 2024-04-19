@@ -11,7 +11,7 @@ class Pixel:
 
     def update_height(self, height):
         self.height = height
-class Divide:
+class Plane:
     def __init__(self,RGB,n):
         self.RGB = RGB
         self.n = n
