@@ -31,19 +31,8 @@ def calcualte_height(n0,n1):
 
     return delta_h
 
-def plot_height_map(height_map):
-    m,n = len(height_map), len(height_map[0])
-    height_map = np.array([[height_map[i][j].height for j in range(n)] for i in range(m)])
-    x = np.arange(m)
-    y = np.arange(n)
-    x,y = np.meshgrid(x,y)
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    surface = ax.plot_surface(x, y, height_map, rstride=1, cstride=1, cmap='viridis')
-    fig.colorbar(surface)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Height')
-    ax.set_title('3D Construction')
-    plt.show()
+def sub_list(a,b):
+    return [a[i]-b[i] for i in range(len(a))]
+def add_list(a,b):
+    return [a[i]+b[i] for i in range(len(a))]
     
