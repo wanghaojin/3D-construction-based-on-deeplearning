@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.sparse import lil_matrix, csr_matrix
 from scipy.sparse.linalg import spsolve
+from scipy.ndimage import zoom
 
 class Pixel:
     def __init__(self):
@@ -94,10 +95,17 @@ if image is not None:
 
     # Solve Poisson equation to obtain the height map
     height_map = poisson_solver(gx, gy)
+    
+    scale_factor = (101 / height_map.shape[0], 101 / height_map.shape[1])
+    height_map = zoom(height_map, scale_factor, mode='nearest')
+    
     np.save('height_map.npy', height_map)
+    
+    
     # Plot the result
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+    m, n = height_map.shape
     X, Y = np.meshgrid(np.arange(n), np.arange(m))
     ax.plot_surface(X, Y, height_map, cmap='viridis')
 
