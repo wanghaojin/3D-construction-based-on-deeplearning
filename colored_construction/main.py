@@ -30,8 +30,7 @@ else:
     plane_list = []
     for i in range(num):
         R, G, B = xlsx['R'][i], xlsx['G'][i], xlsx['B'][i]
-        xyz = xlsx['晶面'][i][1:-1].split(' ')
-        x, y, z = [int(x) for x in xyz]
+        x, y, z = list(map(int, xlsx['晶面'][i][1:-1].split(' ')))
         plane_list.append(Plane([R, G, B], [x, y, z]))
     for i in range(m):
         for j in range(n):

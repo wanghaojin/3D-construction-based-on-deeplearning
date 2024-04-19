@@ -25,13 +25,18 @@ def sub_list(list1, list2):
     return [a - b for a, b in zip(list1, list2)]
 
 # Define paths
-data_dir = '../data'
+main_dir = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.join(main_dir, '../data')
 xlsx_source = os.path.join(data_dir, 'RGB.xlsx')
 image_path = os.path.join(data_dir, "image.tif")
 
 # Read the Excel file with RGB and normal vectors
 xlsx = pd.read_excel(xlsx_source)
-planes = [Plane(eval(row['RGB']), [row['Nx'], row['Ny'], row['Nz']]) for index, row in xlsx.iterrows()]
+# for index, row in xlsx.iterrows() :
+#     if pd.isnull(row['晶面']):
+#         continue
+#     print(index, '%%%', row)
+planes = [Plane([row['R'], row['G'], row['B']], list(map(int, xlsx['晶面'][index][1:-1].split(' ')))) for index, row in xlsx.iterrows() if not pd.isnull(row['晶面'])]
 
 # Load the image
 image = cv2.imread(image_path)
