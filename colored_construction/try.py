@@ -95,11 +95,12 @@ if image is not None:
 
     # Solve Poisson equation to obtain the height map
     height_map = poisson_solver(gx, gy)
-    
+    height_map = np.flip(height_map, axis=0)
+    height_map = height_map.T
     scale_factor = (101 / height_map.shape[0], 101 / height_map.shape[1])
     height_map = zoom(height_map, scale_factor, mode='nearest')
     
-    np.save('height_map.npy', height_map)
+    np.save('height_map1.npy', height_map)
     
     
     # Plot the result
